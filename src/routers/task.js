@@ -49,9 +49,14 @@ router.post('/tasks',async (req,res)=>{
          return res.status(401).send({"error":"Invalid parameters"})
      }
      try{
-         const task = await Task.findByIdAndUpdate(_id,req.body,{new: true, runValidators: true})
+
+        const task = await Task.findById(_id)
+
+        updates.forEach(update=> task[update] = req.body[update]);
+
          res.send(task)
      }catch(e){
+         console.log(e)
          res.status(500).send(e)
      }
  })

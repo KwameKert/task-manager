@@ -1,10 +1,11 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
+const bycrypt = require('bcryptjs')
 
 
 //user schema
 
-const UserSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     name : {
         type: String,
         required: true,
@@ -40,14 +41,20 @@ const UserSchema = new mongoose.Schema({
 })
 
 
-UserSchema.pre('save', async function(next){
+userSchema.pre('save', async function(next) {
 
-    console.log("Saving here ")
+    const user = this
+
+    if(user.isModified('password')){
+        
+        user.password = bycrypt.hashSync(user.password, 8);
+    }
+    //console.log("Saving here ")
     next()
 })
 
 //creating user model 
-const User = mongoose.model('users', UserSchema)
+const User = mongoose.model('User', userSchema)
 
 
 

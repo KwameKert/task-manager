@@ -39,6 +39,13 @@ const UserSchema = new mongoose.Schema({
 
 })
 
+
+UserSchema.pre('save', async function(next){
+
+    console.log("Saving here ")
+    next()
+})
+
 //creating user model 
 const User = mongoose.model('users', UserSchema)
 

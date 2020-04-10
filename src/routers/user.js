@@ -80,18 +80,19 @@ router.delete('/users/:id', async(req,res)=>{
 
 
 
-router.post('/users/authenticate', async (req,res)=> {
+router.post('/users/authenticate', async (req, res)=> {
     const email = req.body.email
     const password = req.body.password
 
     try {
-
         const user = await User.findByCredentials(email, password)
-
-        res.send(user);
+        res.status(302).send(user);
 
     }catch(e) {
 
+        console.error(e)
+     
+        res.status(400).send(e)
     }
 })
 

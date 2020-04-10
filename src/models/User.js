@@ -2,8 +2,9 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 
 
-//creating user model 
-const User = mongoose.model('users', {
+//user schema
+
+const UserSchema = new mongoose.Schema({
     name : {
         type: String,
         required: true,
@@ -37,6 +38,9 @@ const User = mongoose.model('users', {
     }
 
 })
+
+//creating user model 
+const User = mongoose.model('users', UserSchema)
 
 
 

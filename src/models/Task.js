@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-const User = mongoose.model('tasks',{
+const Task = mongoose.model('tasks',{
     completed: {
         type: Boolean,
         required: true,
@@ -14,4 +14,4 @@ const User = mongoose.model('tasks',{
 });
 
 
-module.exports = User
+module.exports = Task

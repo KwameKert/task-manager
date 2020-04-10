@@ -52,7 +52,7 @@ userSchema.statics.findByCredentials = async (email, password)=>{
 
   
 
-    const isMatch = bycrypt.compareSync(password, user.password);
+    const isMatch = bycrypt.compare(password, user.password);
 
     if(!isMatch){
         throw new Error("Invalid credentials")

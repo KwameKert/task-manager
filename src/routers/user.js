@@ -80,7 +80,7 @@ router.delete('/users/:id', async(req,res)=>{
 
 
 
-router.post('/users/authenticate', async (req, res)=> {
+router.post('/users/login', async (req, res)=> {
     const email = req.body.email
     const password = req.body.password
 

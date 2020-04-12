@@ -50,18 +50,20 @@ const userSchema = new mongoose.Schema({
 })
 
 
-userSchema.methods.generateUserToken = async () =>{
+userSchema.methods.generateUserToken = async function() {
 
     const user = this
 
-    const token = jwt.sign({_id: user._id},'tasksecret',{expiresIn: 60 * 60})
+    console.log(user)
+
+    const token = jwt.sign({ _id: user._id.toString() },'tasksecret',{expiresIn: 60 * 60})
 
      user.tokens = user.tokens.concat({token})
 
      await user.save()
-    return token;
-    
 
+
+    return token;
 }
 
 userSchema.statics.findByCredentials = async (email, password)=>{

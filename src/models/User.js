@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const bycrypt = require('bcryptjs')
-
+const jwt = require('jsonwebtoken')
 
 //user schema
 
@@ -37,10 +37,32 @@ const userSchema = new mongoose.Schema({
                 throw new Error('Please choose another password')
             }
         }
-    }
+    },
+    tokens: [
+        {
+            token : {
+                type: String, 
+                required: true
+            }
+        }
+    ]
 
 })
 
+
+userSchema.methods.generateUserToken = async () =>{
+
+    const user = this
+
+    const token = jwt.sign({_id: user._id},'tasksecret',{expiresIn: 60 * 60})
+
+     user.tokens = user.tokens.concat({token})
+
+     await user.save()
+    return token;
+    
+
+}
 
 userSchema.statics.findByCredentials = async (email, password)=>{
 

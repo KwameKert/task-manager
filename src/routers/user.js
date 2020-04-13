@@ -28,14 +28,9 @@ router.get('/users',auth, async (req,res)=>{
     }
  
 })
-router.get('/users',auth, async (req,res)=>{
+router.get('/users/me',auth, async (req,res)=>{
 
-    try{
-        const users =  await User.find({})
-        res.send(users)
-    }catch(e){
-        res.status(400).send(e)
-    }
+    res.send(req.user)
  
 })
 

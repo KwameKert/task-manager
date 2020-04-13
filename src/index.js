@@ -8,6 +8,14 @@ app.listen(port, ()=>{
     console.log("Server up and running")
 })
 
+app.use((req,res,next)=>{
+
+    res.status(503).send("Site under mentainance mode. Please try again later")
+
+})
+
+
+
 require('./db/mongoose.js')
 
 

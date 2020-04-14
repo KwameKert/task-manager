@@ -57,6 +57,22 @@ router.get('/users/logout', auth, async (req, res)=>{
 })
 
 
+//logout user from all sesssions
+
+router.get('/users/logoutAll', auth, async (req,res)=>{
+
+    try{
+        req.user.tokens = []
+
+         req.user.save()
+         res.status(200).send({message: 'logged out from all sessions'})
+
+    }catch(e){
+
+        res.status(417).send({error: 'Expectation failed'})
+    }
+})
+
 
 router.get('/users/:id',async (req,res)=>{
     const _id = req.params.id;

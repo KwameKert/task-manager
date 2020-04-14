@@ -39,16 +39,19 @@ router.get('/users/logout', auth, async (req, res)=>{
 
     try{
 
-        req.user.tokens = req.user.tokens.filter((token)=>{
-            return token.token !== req.token
+        req.user.tokens = req.user.tokens.filter((tokenObj)=>{
+            return tokenObj.token !== req.token
         })
 
-        await req.user.save();
+        console.log("Got here")
+         req.user.save();
 
-        res.send()
+        res.status(200).send({message: 'User logged out'})
 
     }catch(e){
-        res.status(500).send()
+
+        console.error(e)
+        res.status(500).send({error: 'Oops an error occured'})
     }
 
 })
@@ -64,7 +67,7 @@ router.get('/users/:id',async (req,res)=>{
         }
         res.send(user)
     }catch(e){
-        res.status(500).send(e)
+        res.status(500).send()
     }
 })
 
@@ -121,7 +124,7 @@ router.post('/users/login', async (req, res)=> {
 
     }catch(e) {
      
-        res.status(400).send(e)
+        res.status(400).send({error: 'User not found'})
     }
 })
 

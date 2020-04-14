@@ -54,8 +54,6 @@ userSchema.methods.generateUserToken = async function() {
 
     const user = this
 
-    console.log(user)
-
     const token = jwt.sign({ _id: user._id.toString() },'tasksecret',{expiresIn: 60 * 60})
 
      user.tokens = user.tokens.concat({token})

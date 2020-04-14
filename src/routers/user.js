@@ -34,6 +34,27 @@ router.get('/users/me',auth, async (req,res)=>{
  
 })
 
+
+router.get('/users/logout', auth, async (req, res)=>{
+
+    try{
+
+        req.user.tokens = req.user.tokens.filter((token)=>{
+            return token.token !== req.token
+        })
+
+        await req.user.save();
+
+        res.send()
+
+    }catch(e){
+        res.status(500).send()
+    }
+
+})
+
+
+
 router.get('/users/:id',async (req,res)=>{
     const _id = req.params.id;
     try {
@@ -99,8 +120,6 @@ router.post('/users/login', async (req, res)=> {
         res.status(302).send({user, token});
 
     }catch(e) {
-
-        console.error(e)
      
         res.status(400).send(e)
     }

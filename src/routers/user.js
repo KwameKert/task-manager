@@ -43,14 +43,14 @@ router.get('/users/logout', auth, async (req, res)=>{
             return tokenObj.token !== req.token
         })
 
-        console.log("Got here")
+       
          req.user.save();
 
         res.status(200).send({message: 'User logged out'})
 
     }catch(e){
 
-        console.error(e)
+        //console.error(e)
         res.status(500).send({error: 'Oops an error occured'})
     }
 
@@ -87,7 +87,7 @@ router.get('/users/:id',async (req,res)=>{
     }
 })
 
-router.patch('/users/:id', async (req, res)=>{
+router.patch('/users/me',auth, async (req, res)=>{
 
     const updates = Object.keys(req.body)
     const allowedParams = ['name','email','age','password']
@@ -99,11 +99,13 @@ router.patch('/users/:id', async (req, res)=>{
     try {
         // const user = await  User.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true})
 
-        const user = await  User.findById(req.params.id)
+        //const user = await  User.findById(req.params.id)
+
+        const user = req.user
 
         updates.forEach(update => user[update] = req.body[update] );
 
-        await user.save()
+         user.save()
 
         res.send(user)
     }catch(e){
@@ -120,7 +122,7 @@ router.delete('/users/me',auth, async(req,res)=>{
 
     try {
 
-         req.user.remove()
+        await req.user.remove()
         // const user = await User.findByIdAndDelete(_id)
         // if(!user){
         //     return res.status(400).send({"error":"Sorry... User not found"})

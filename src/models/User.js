@@ -61,7 +61,7 @@ userSchema.methods.toJSON = function() {
     delete userObject.password
     delete userObject.tokens
 
-    return userObject
+    return userObject;
 }
 
 
@@ -90,7 +90,8 @@ userSchema.statics.findByCredentials = async (email, password)=>{
 
   
 
-    const isMatch = bycrypt.compare(password, user.password);
+    const isMatch = await bycrypt.compare(password, user.password);
+    
 
     if(!isMatch){
         throw new Error("Invalid credentials")

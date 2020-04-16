@@ -28,6 +28,8 @@ router.get('/users',auth, async (req,res)=>{
     }
  
 })
+
+
 router.get('/users/me',auth, async (req,res)=>{
 
     res.send(req.user)
@@ -123,10 +125,7 @@ router.delete('/users/me',auth, async(req,res)=>{
     try {
 
         await req.user.remove()
-        // const user = await User.findByIdAndDelete(_id)
-        // if(!user){
-        //     return res.status(400).send({"error":"Sorry... User not found"})
-        // }
+       
         res.status(202).send({user: req.user,message:'User deleted successfully'})
     }catch(e){
         res.status(500).send(e)

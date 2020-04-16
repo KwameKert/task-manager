@@ -11,7 +11,7 @@ const Task = mongoose.model('tasks',{
         type: String, 
         required: true
     },
-    owener: {
+    owner: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
     }

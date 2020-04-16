@@ -60,10 +60,11 @@ router.post('/tasks',auth,async (req,res)=>{
      }
      try{
 
-        const task = await Task.findById({_id, owner: req.user._id})
+        const task = await Task.findOne({_id, owner: req.user._id})
 
         updates.forEach(update=> task[update] = req.body[update]);
 
+        await task.save()
          res.send(task)
      }catch(e){
          console.log(e)

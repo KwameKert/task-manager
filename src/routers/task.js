@@ -49,7 +49,7 @@ router.post('/tasks',auth,async (req,res)=>{
  })
  
  
- router.patch('/tasks/:id',async (req,res)=>{
+ router.patch('/tasks/:id',auth,async (req,res)=>{
      const _id = req.params.id
      const updates = Object.keys(req.body)
      const allowedParams = ['description','completed']
@@ -60,7 +60,7 @@ router.post('/tasks',auth,async (req,res)=>{
      }
      try{
 
-        const task = await Task.findById(_id)
+        const task = await Task.findById({_id, owner: req.user._id})
 
         updates.forEach(update=> task[update] = req.body[update]);
 

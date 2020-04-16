@@ -10,6 +10,10 @@ const Task = mongoose.model('tasks',{
     description: {
         type: String, 
         required: true
+    },
+    owener: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
     }
 });
 

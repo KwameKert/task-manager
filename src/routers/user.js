@@ -99,15 +99,13 @@ router.patch('/users/me',auth, async (req, res)=>{
         return res.status(403).send({"error": "Invalid parameters"})
     }
     try {
-        // const user = await  User.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true})
-
-        //const user = await  User.findById(req.params.id)
+      
 
         const user = req.user
 
         updates.forEach(update => user[update] = req.body[update] );
 
-         user.save()
+        user.save()
 
         res.send(user)
     }catch(e){

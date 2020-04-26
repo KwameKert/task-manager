@@ -49,7 +49,7 @@ router.post('/tasks',auth,async (req,res)=>{
  })
  
  
- router.patch('/tasks/:id',auth,async (req,res)=>{
+ router.patch('/tasks/:id', auth ,async (req,res)=>{
      const _id = req.params.id
      const updates = Object.keys(req.body)
      const allowedParams = ['description','completed']

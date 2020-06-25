@@ -4,8 +4,13 @@
   "description": "task manager",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "start": "node -r dotenv/config src/index.js",
+    "dev": "nodemon -r dotenv/config  src/index.js dotenv_config_path=config/dev.env",
+    "test": "jest --watch --setupFiles  dotenv/config"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupFiles": ["dotenv/config dotenv_config_path=test.env"]
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +23,8 @@
     "validator": "^12.0.0"
   },
   "devDependencies": {
+    "dotenv": "^8.2.0",
+    "jest": "^26.1.0",
     "nodemon": "^2.0.0"
   }
 }
